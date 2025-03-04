@@ -5,13 +5,11 @@ from prophet import Prophet
 
 app = Flask(__name__)
 
-# Load and preprocess data
-data_path = r"C:\project\Walmart.csv"
+import pandas as pd
 
-if not os.path.exists(data_path):
-    raise FileNotFoundError(f"Dataset not found at {data_path}")
+dataset_url = "https://your-cloud-link.com/Walmart.csv"
+df = pd.read_csv(dataset_url)
 
-df = pd.read_csv(data_path)
 df['Date'] = pd.to_datetime(df['Date'], format='%d-%m-%Y')
 df_filtered = df[['Date', 'Weekly_Sales']].rename(columns={'Date': 'ds', 'Weekly_Sales': 'y'})
 
